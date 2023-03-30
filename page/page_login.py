@@ -16,20 +16,12 @@ class PageLogin(Base):
         sleep(1)
         self.base_click(page.login)
 
-    # # 获取异常信息
-    # def page_login_error(self):
-    #     return self.base_get_text(page.error)
-    #
-    # # 获取通过信息
-    # def page_login_pass(self):
-    #     return self.base_get_text(page.succeed)
-
     # 获取断言信息
     def page_login_assert(self):
-        return self.base_get_text(page.login_text, page.login_text_num)
+        return self.base_get_text(page.login_text)
 
     # 截图
-    def page_login_assertionview(self,path,  assertionname):
+    def page_login_assertionview(self, path, assertionname):
         self.base_get_image(path, assertionname)
 
     # 组装业务方法

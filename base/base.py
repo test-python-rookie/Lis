@@ -14,8 +14,8 @@ class Base:
     def base_find_element(self, loc, timeout=30, poll=0.5):
         return WebDriverWait(self.driver, timeout=timeout, poll_frequency=poll).until(lambda x: x.find_element(*loc))
 
-    def base_find_elements(self, loc, timeout=30, poll=0.5):
-        return WebDriverWait(self.driver, timeout=timeout, poll_frequency=poll).until(lambda x: x.find_elements(*loc))
+    def base_find_elements(self, loc, num, timeout=30, poll=0.5):
+        return WebDriverWait(self.driver, timeout=timeout, poll_frequency=poll).until(lambda x: x.find_elements(*loc)[num])
 
     def base_finds_elements(self, loc1, num1, loc2, num2, timeout=30, poll=0.5):
         return WebDriverWait(self.driver, timeout=timeout, poll_frequency=poll).until(lambda x: x.find_elements(*loc1)[num1].find_elements(*loc2)[num2])
@@ -29,7 +29,7 @@ class Base:
         if num is None:
             self.base_find_element(loc).click()
         else:
-            self.base_find_elements(loc)[num].click()
+            self.base_find_elements(loc, num).click()
 
     # 双重元素定位点击方法
     def base_finds_click(self, loc1, num1, loc2, num2):
@@ -39,12 +39,16 @@ class Base:
     def base_double_click(self, double):
         ActionChains(self.driver).double_click(double).perform()
 
+    # 鼠标悬停
+    def base_move_element(self, move):
+        ActionChains(self.driver).move_to_element(move).perform()
+
     # 输入方法
     def base_input(self, loc, value, num=None):
         if num is None:
             el = self.base_find_element(loc)
         else:
-            el = self.base_find_elements(loc)[num]
+            el = self.base_find_elements(loc, num)
         # 清空
         el.clear()
         el.send_keys(*value)
@@ -54,7 +58,7 @@ class Base:
         if num is None:
             return self.base_find_element(loc).text
         else:
-            return self.base_find_elements(loc)[num].text
+            return self.base_find_elements(loc, num).text
 
     # 双重元素定位获取文本方法
     def base_finds_text(self, loc1, num1, loc2, num2):
@@ -74,7 +78,18 @@ class Base:
     def base_get_url(self):
         return self.driver.current_url
 
+    # 获取窗口句柄并关闭新打开的窗口
+    def base_window_handles(self):
+        all_handles = self.driver.window_handles
+        self.driver.switch_to.window(all_handles[-1])
+        self.driver.close()
+        self.driver.switch_to.window(all_handles[0])
+
     # 截图方法
     def base_get_image(self, path, assertionname):
         # print(path)
         self.driver.get_screenshot_as_file('{}/{}_{}.png'.format(path, assertionname, time.strftime('%Y%m%d%H%M%S')))
+
+    # 页面刷新
+    def base_refresh(self):
+        self.driver.refresh()

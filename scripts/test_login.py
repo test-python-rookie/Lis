@@ -7,7 +7,6 @@ import data
 from data.data_login import DataLogin
 
 def get_data():
-#    return [('wmadmin', '123456', url), ('wmadmin', '1234', url)]
     return [(DataLogin().username, DataLogin().password[0], DataLogin().expect)]
 
 class TestLogin(unittest.TestCase):
@@ -33,11 +32,11 @@ class TestLogin(unittest.TestCase):
             self.assertEqual(msg, expect)
             self.login.page_login_assertionview(data.join_path, DataLogin().successname)
             print('登录成功！！！')
-            # print('url地址为：', DataLogin().successname)
-        except AssertionError:
+        except AssertionError as e:
             self.login.page_login_assertionview(data.join_path, DataLogin().errorname)
             print('登录失败！！！')
             # print('url地址为：', msg)
+            raise AssertionError(e)
 
     if __name__ == '__main__':
         unittest.main()

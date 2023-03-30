@@ -1,5 +1,7 @@
+import HTMLTestRunner
 import os
 import glob
+import time
 import data
 import unittest
 
@@ -7,22 +9,29 @@ import unittest
 if __name__ == '__main__':
     for file_name in glob.glob('{}/*'.format(data.join_path)):
         os.remove(file_name)
-        # print(file_name)
     case_login = unittest.defaultTestLoader.discover('./scripts', pattern="test_login.py")
-    case_inhouse = unittest.defaultTestLoader.discover('./scripts', pattern="test_inhouse.py")
-    case_request = unittest.defaultTestLoader.discover('./scripts', pattern="test_request.py")
-    case_agree = unittest.defaultTestLoader.discover('./scripts', pattern="test_agree.py")
-    case_outhouse = unittest.defaultTestLoader.discover('./scripts', pattern="test_outhouse.py")
-    # 创建套件
-    suit = unittest.TestSuite()
-    # 添加套件用例
-    suit.addTest(case_login)
-    suit.addTest(case_inhouse)
-    suit.addTest(case_request)
-    suit.addTest(case_agree)
-    suit.addTest(case_outhouse)
-    run = unittest.TextTestRunner()
-    run.run(suit)
+    case_register = unittest.defaultTestLoader.discover('./scripts', pattern="test_register.py")
+    case_result = unittest.defaultTestLoader.discover('./scripts', pattern="test_result.py")
+    # # 创建套件
+    # suit = unittest.TestSuite()
+    # # 添加套件用例
+    # suit.addTest(case_login)
+    # suit.addTest(case_register)
+    # suit.addTest(case_result)
+    # run = unittest.TextTestRunner()
+    # run.run(suit)
+    # 生成测试报告
+    report_file_path = data.report_path + '/test_report_{}.html'.format(time.strftime('%Y%m%d%H%M%S'))
+    with open(report_file_path,'wb') as f:
+        print(report_file_path)
+        # 创建套件
+        suit = unittest.TestSuite()
+        # 添加套件用例
+        suit.addTest(case_login)
+        suit.addTest(case_register)
+        suit.addTest(case_result)
+        runner = HTMLTestRunner.HTMLTestRunner(stream=f, title='',description='',verbosity=2)
+        runner.run(suit)
 
 
 
