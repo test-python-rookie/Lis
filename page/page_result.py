@@ -108,7 +108,7 @@ class PageResult(Base):
     def page_result(self, input1, input2, input3, input4, input5):
         # 获取标本号
         self.sp_num = self.page_refresh()
-        print(self.sp_num)
+        print('结果编辑使用标本号：', self.sp_num)
         # sleep(1)
         # self.page_login_user()
         # sleep(1)

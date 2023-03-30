@@ -27,7 +27,8 @@ class TestResult(unittest.TestCase):
     def test_result(self, input1, input2, input3, input4, input5):
         # 调用测试方法
         self.type = self.result.page_result(input1, input2, input3, input4, input5)
-        print(self.type)
+        print('标本编辑审核前状态：', self.type[0])
+        print('标本编辑审核后状态：', self.type[1])
         sleep(5)
         try:
             self.assertEqual(self.type[1], '已批准')

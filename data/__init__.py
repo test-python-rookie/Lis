@@ -7,3 +7,4 @@ root_path = cur_path[:cur_path.find('Lis')]+'Lis'
 join_path = r'{}/image'.format(root_path.replace('\\', '/'))
 data_path = r'{}/data'.format(root_path.replace('\\', '/'))
 report_path = r'{}/report'.format(root_path.replace('\\', '/'))
+scripts_path = r'{}/scripts'.format(root_path.replace('\\', '/'))

@@ -9,9 +9,9 @@ import unittest
 if __name__ == '__main__':
     for file_name in glob.glob('{}/*'.format(data.join_path)):
         os.remove(file_name)
-    case_login = unittest.defaultTestLoader.discover('./scripts', pattern="test_login.py")
-    case_register = unittest.defaultTestLoader.discover('./scripts', pattern="test_register.py")
-    case_result = unittest.defaultTestLoader.discover('./scripts', pattern="test_result.py")
+    case_login = unittest.defaultTestLoader.discover(data.scripts_path, pattern="test_login.py")
+    case_register = unittest.defaultTestLoader.discover(data.scripts_path, pattern="test_register.py")
+    case_result = unittest.defaultTestLoader.discover(data.scripts_path, pattern="test_result.py")
     # # 创建套件
     # suit = unittest.TestSuite()
     # # 添加套件用例
