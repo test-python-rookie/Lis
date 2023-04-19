@@ -189,9 +189,9 @@ function showOutput(id, name) {
 
 <div class='heading'>
 <h1></h1>
-<p class='attribute'><strong>Start Time:</strong> 2023-03-30 15:00:31</p>
-<p class='attribute'><strong>Duration:</strong> 0:01:02.489747</p>
-<p class='attribute'><strong>Status:</strong> Pass 3</p>
+<p class='attribute'><strong>Start Time:</strong> 2023-04-19 17:55:12</p>
+<p class='attribute'><strong>Duration:</strong> 0:02:19.800185</p>
+<p class='attribute'><strong>Status:</strong> Pass 6</p>
 
 <p class='description'></p>
 </div>
@@ -279,7 +279,7 @@ pt1.1: 登录成功！！！
         </div>
         <pre>
         
-pt2.1: (230330000032, 230330000033)
+pt2.1: 登记成功生成标本号： 230419000049 230419000050
 标本登记成功！！！
 
 
@@ -292,15 +292,15 @@ pt2.1: (230330000032, 230330000033)
 
 <tr class='passClass'>
     <td>test_result.TestResult</td>
-    <td>1</td>
-    <td>1</td>
+    <td>2</td>
+    <td>2</td>
     <td>0</td>
     <td>0</td>
-    <td><a href="javascript:showClassDetail('c3',1)">Detail</a></td>
+    <td><a href="javascript:showClassDetail('c3',2)">Detail</a></td>
 </tr>
 
 <tr id='pt3.1' class='hiddenRow'>
-    <td class='none'><div class='testcase'>test_result_0_10</div></td>
+    <td class='none'><div class='testcase'>test_01_result_audit_0_10</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
@@ -314,9 +314,103 @@ pt2.1: (230330000032, 230330000033)
         </div>
         <pre>
         
-pt3.1: 230330000033
-('已接收', '已批准')
+pt3.1: 结果编辑使用标本号： 230419000049
+标本编辑审核前状态： 已接收
+标本编辑审核后状态： 已审核
 结果编辑审核成功！！！
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt3.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_02_result_approve</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt3.2')" >
+        pass</a>
+
+    <div id='div_pt3.2' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt3.2').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt3.2: 结果批准使用标本号： 230419000049
+标本批准前状态： 已审核
+标本批准后状态： 已批准
+结果批准成功！！！
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>test_microorganism.TestMicroorganism</td>
+    <td>2</td>
+    <td>2</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c4',2)">Detail</a></td>
+</tr>
+
+<tr id='pt4.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_01_microorganism_audit_0__</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt4.1')" >
+        pass</a>
+
+    <div id='div_pt4.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt4.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt4.1: 微生物结果编辑使用标本号： 230419000050
+微生物标本编辑审核前状态： 已接收
+微生物标本编辑审核后状态： 已审核
+微生物结果编辑审核成功！！！
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt4.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_02_result_approve</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt4.2')" >
+        pass</a>
+
+    <div id='div_pt4.2' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt4.2').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt4.2: 微生物结果批准使用标本号： 230419000050
+微生物标本批准前状态： 已审核
+微生物标本批准后状态： 已批准
+微生物结果批准成功！！！
 
 
         </pre>
@@ -328,8 +422,8 @@ pt3.1: 230330000033
 
 <tr id='total_row'>
     <td>Total</td>
-    <td>3</td>
-    <td>3</td>
+    <td>6</td>
+    <td>6</td>
     <td>0</td>
     <td>0</td>
     <td>&nbsp;</td>

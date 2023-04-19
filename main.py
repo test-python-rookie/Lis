@@ -12,6 +12,7 @@ if __name__ == '__main__':
     case_login = unittest.defaultTestLoader.discover(data.scripts_path, pattern="test_login.py")
     case_register = unittest.defaultTestLoader.discover(data.scripts_path, pattern="test_register.py")
     case_result = unittest.defaultTestLoader.discover(data.scripts_path, pattern="test_result.py")
+    case_microorganism = unittest.defaultTestLoader.discover(data.scripts_path, pattern="test_microorganism.py")
     # # 创建套件
     # suit = unittest.TestSuite()
     # # 添加套件用例
@@ -30,6 +31,7 @@ if __name__ == '__main__':
         suit.addTest(case_login)
         suit.addTest(case_register)
         suit.addTest(case_result)
+        suit.addTest(case_microorganism)
         runner = HTMLTestRunner.HTMLTestRunner(stream=f, title='',description='',verbosity=2)
         runner.run(suit)
 

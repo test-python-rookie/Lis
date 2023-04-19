@@ -27,14 +27,8 @@ class PageResult(Base):
     def page_refresh(self):
         # 标本查询
         self.base_click(page.query_register, page.query_register_num)
-        # 获取标本新增前最新数量文本
-        self.text = self.base_get_text(page.text)
-        # 提取数量
-        self.num1 = re.findall("\d+", self.text)
-        # 标本格式
-        self.num2 = '{}000000'.format(time.strftime('%y%m%d'))
-        # 标本新增前最新标本号
-        self.sp_num = int(self.num1[0]) + int(self.num2)
+        # 获取标本新增最新数量文本
+        self.sp_num = self.base_get_text(page.text)
         sleep(1)
         self.base_click(page.register_clock)
         sleep(1)
@@ -55,18 +49,17 @@ class PageResult(Base):
     def page_result_query(self, sp_num):
         # 输入标本号
         self.base_input(page.spnum1, sp_num, page.spnum1_num)
+        # 标本查询
         self.base_click(page.spnum2,page.spnum2_num)
-        # 获取标本编辑前状态
+        # 获取标本当前状态
         self.type = self.base_get_text(page.result_type)
         return self.type
 
-    # 结果编辑
-    def page_result_editing(self):
+    # 输入结果编辑数据并审核
+    def page_result_data(self, input1, input2, input3, input4, input5):
         # 点击结果编辑按钮
         self.base_click(page.result_editing, page.result_editing_num)
-
-    # 输入结果编辑数据
-    def page_result_data(self, input1, input2, input3, input4, input5):
+        sleep(1)
         # 输入结果编辑数据
         self.base_input(page.input1, input1, page.input1_num)
         self.base_input(page.input2, input2, page.input2_num)
@@ -76,25 +69,50 @@ class PageResult(Base):
         sleep(1)
         # 结果保存
         self.base_click(page.result_save, page.result_save_num)
-        sleep(1)
+        sleep(3)
+        # 标本查询
+        self.base_click(page.spnum2, page.spnum2_num)
         # 结果审核
-        self.base_click(page.result_audit1, page.result_audit1_num)
         sleep(1)
         self.base_click(page.result_audit2, page.result_audit2_num)
         sleep(1)
         self.base_click(page.result_audit3, page.result_audit3_num)
+        sleep(3)
+        # 标本查询
+        self.base_click(page.spnum2, page.spnum2_num)
         sleep(1)
-        # 结果批准
-        self.base_click(page.result_approve1, page.result_approve1_num)
-        sleep(1)
-        self.base_click(page.result_approve2, page.result_approve2_num)
-        sleep(5)
-        self.base_click(page.result_approve3, page.result_approve3_num)
-        sleep(1)
-        self.base_click(page.result_approve1, page.result_approve1_num)
-        # 获取标本批准后状态
+        # 获取标本审核后状态
         self.type = self.base_get_text(page.result_type)
+        sleep(3)
         return self.type
+
+    #结果批准
+    def page_result_approve(self):
+        # 标本查询
+        self.base_click(page.spnum2, page.spnum2_num)
+        sleep(1)
+        self.sp_num = self.base_get_text(page.result_spnum)
+        print('结果批准使用标本号：', self.sp_num)
+        # 获取标本批准前状态
+        self.type_old = self.base_get_text(page.result_type)
+        # 结果批准
+        self.base_click(page.result_approve2, page.result_approve2_num)
+        sleep(3)
+        self.base_refresh()
+        sleep(1)
+        self.base_click(page.register_clock)
+        sleep(1)
+        self.base_refresh()
+        sleep(1)
+        self.page_open_result()
+        sleep(2)
+        self.type_new = self.page_result_query(str(self.sp_num))
+        # self.base_click(page.result_approve3, page.result_approve3_num)
+        # sleep(1)
+        # self.base_click(page.result_approve1, page.result_approve1_num)
+        # 获取标本批准后状态
+        # self.type = self.base_get_text(page.result_type)
+        return self.type_old, self.type_new
 
     # # 获取断言
     # def page_result_pass(self):
@@ -104,8 +122,8 @@ class PageResult(Base):
     def page_result_assertionview(self, path, assertionname):
         self.base_get_image(path, assertionname)
 
-    # 组装业务方法
-    def page_result(self, input1, input2, input3, input4, input5):
+    # 组装结果编辑审核业务方法
+    def page_result_audit(self, input1, input2, input3, input4, input5):
         # 获取标本号
         self.sp_num = self.page_refresh()
         print('结果编辑使用标本号：', self.sp_num)
@@ -117,8 +135,12 @@ class PageResult(Base):
         self.page_open_result()
         sleep(2)
         self.type_old = self.page_result_query(str(self.sp_num))
-        sleep(2)
-        self.page_result_editing()
+        # self.type_old = self.page_result_query('230418000027')
         sleep(2)
         self.type_new = self.page_result_data(input1, input2, input3, input4, input5)
         return self.type_old, self.type_new
+
+    # # 组装结果批准业务方法
+    # def page_result_approve(self):
+    #     self.type = self.page_result_approve()
+    #     return self.type

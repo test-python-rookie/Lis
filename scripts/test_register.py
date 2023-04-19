@@ -27,11 +27,9 @@ class TestRegister(unittest.TestCase):
     def test_register(self, zlkh, jyxm):
         # 调用测试方法
         self.sp_num = self.register.page_register(zlkh, jyxm)
-        print('标本登记前最新标本号：', self.sp_num[0])
-        print('标本登记后最新标本号：', self.sp_num[1])
         sleep(3)
         try:
-            self.assertTrue(self.sp_num[0] < self.sp_num[1])
+            self.assertEqual(self.sp_num[0], self.sp_num[1])
             self.register.page_register_assertionview(data.join_path, DataRegister().successname)
             print('标本登记成功！！！')
         except AssertionError as e:

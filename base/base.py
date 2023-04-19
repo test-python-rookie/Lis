@@ -82,13 +82,17 @@ class Base:
     def base_window_handles(self):
         all_handles = self.driver.window_handles
         self.driver.switch_to.window(all_handles[-1])
+        time.sleep(1)
+        self.url = self.driver.current_url
         self.driver.close()
         self.driver.switch_to.window(all_handles[0])
+        return self.url
 
     # 截图方法
     def base_get_image(self, path, assertionname):
         # print(path)
-        self.driver.get_screenshot_as_file('{}/{}_{}.png'.format(path, assertionname, time.strftime('%Y%m%d%H%M%S')))
+        self.img = r'{}/{}_{}.png'.format(path, assertionname, time.strftime('%Y%m%d%H%M%S'))
+        self.driver.get_screenshot_as_file(self.img)
 
     # 页面刷新
     def base_refresh(self):

@@ -13,30 +13,48 @@ def get_data():
 
 class TestResult(unittest.TestCase):
     # 初始化
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls):
         # 获取登录页面对象
-        self.result = PageResult(GetDriver().get_driver())
+        cls.result = PageResult(GetDriver().get_driver())
 
     # 结束方法
-    def tearDown(self):
-        # 关闭浏览器
-        GetDriver().quit_driver()
+    # @classmethod
+    # def tearDownClass(cls):
+    #     # 关闭浏览器
+    #     GetDriver().quit_driver()
 
-    # 新建测试方法
+    # 新建结果编辑审核测试方法
     @parameterized.expand(get_data())
-    def test_result(self, input1, input2, input3, input4, input5):
+    def test_01_result_audit(self, input1, input2, input3, input4, input5):
         # 调用测试方法
-        self.type = self.result.page_result(input1, input2, input3, input4, input5)
+        self.type = self.result.page_result_audit(input1, input2, input3, input4, input5)
         print('标本编辑审核前状态：', self.type[0])
         print('标本编辑审核后状态：', self.type[1])
         sleep(5)
         try:
-            self.assertEqual(self.type[1], '已批准')
-            self.result.page_result_assertionview(data.join_path, DataResult().successname)
+            self.assertEqual(self.type[1], '已审核')
+            self.result.page_result_assertionview(data.join_path, '{}_audit'.format(DataResult().successname))
             print('结果编辑审核成功！！！')
         except AssertionError as e:
-            self.result.page_result_assertionview(data.join_path, DataResult().errorname)
+            self.result.page_result_assertionview(data.join_path, '{}_audit'.format(DataResult().errorname))
             print('结果编辑审核失败！！！')
+            raise AssertionError(e)
+
+    # 新建结果批准测试方法
+    def test_02_result_approve(self):
+        # 调用测试方法
+        self.type = self.result.page_result_approve()
+        print('标本批准前状态：', self.type[0])
+        print('标本批准后状态：', self.type[1])
+        sleep(5)
+        try:
+            self.assertEqual(self.type[1], '已批准')
+            self.result.page_result_assertionview(data.join_path, '{}_approve'.format(DataResult().successname))
+            print('结果批准成功！！！')
+        except AssertionError as e:
+            self.result.page_result_assertionview(data.join_path, '{}_approve'.format(DataResult().errorname))
+            print('结果批准失败！！！')
             raise AssertionError(e)
 
     if __name__ == '__main__':
